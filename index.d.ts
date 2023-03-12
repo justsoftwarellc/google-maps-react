@@ -78,7 +78,7 @@ type markerEventHandler = (props?: IMarkerProps, marker?: google.maps.Marker, ev
 export interface IMarkerProps extends Partial<google.maps.MarkerOptions> {
   mapCenter?: google.maps.LatLng | google.maps.LatLngLiteral
   position?: google.maps.LatLngLiteral
-  label?: string
+  label?: string | google.maps.MarkerLabel
   title?: string
   name?: string
 

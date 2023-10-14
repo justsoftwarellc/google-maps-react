@@ -126,15 +126,7 @@
         function Wrapper(props, context) {
           _classCallCheck(this, Wrapper);
 
-          // Build options from input
           var _this = _possibleConstructorReturn(this, (Wrapper.__proto__ || Object.getPrototypeOf(Wrapper)).call(this, props, context));
-
-          var options = typeof input === 'function' ? input(props) : input;
-
-          _this.onLoad = _this.onLoad.bind(_this);
-
-          // Initialize required Google scripts and other configured options
-          _this.initialize(options);
 
           _this.state = {
             loaded: false,
@@ -148,6 +140,17 @@
         }
 
         _createClass(Wrapper, [{
+          key: 'componentWillMount',
+          value: function componentWillMount(props) {
+            // Build options from input
+            var options = typeof input === 'function' ? input(props) : input;
+
+            this.onLoad = this.onLoad.bind(this);
+
+            // Initialize required Google scripts and other configured options
+            this.initialize(options);
+          }
+        }, {
           key: 'componentDidUpdate',
           value: function componentDidUpdate(props) {
             // Do not update input if it's not dynamic

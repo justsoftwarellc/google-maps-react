@@ -39,14 +39,6 @@ export const wrapper = (input, className, style) => WrappedComponent => {
     constructor(props, context) {
       super(props, context);
 
-      // Build options from input
-      const options = typeof input === 'function' ? input(props) : input;
-
-      this.onLoad = this.onLoad.bind(this);
-
-      // Initialize required Google scripts and other configured options
-      this.initialize(options);
-
       this.state = {
         loaded: false,
         map: null,
@@ -55,6 +47,16 @@ export const wrapper = (input, className, style) => WrappedComponent => {
       };
 
       this.mapRef=React.createRef();
+    }
+
+    componentWillMount(props) {
+      // Build options from input
+      const options = typeof input === 'function' ? input(props) : input;
+
+      this.onLoad = this.onLoad.bind(this);
+
+      // Initialize required Google scripts and other configured options
+      this.initialize(options);
     }
 
     componentDidUpdate(props) {

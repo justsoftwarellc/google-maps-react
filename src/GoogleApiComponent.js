@@ -39,6 +39,8 @@ export const wrapper = (input, className, style) => WrappedComponent => {
     constructor(props, context) {
       super(props, context);
 
+      const options = typeof input === 'function' ? input(props) : input;
+
       this.state = {
         loaded: false,
         map: null,

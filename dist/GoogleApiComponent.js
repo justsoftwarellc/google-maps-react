@@ -131,6 +131,8 @@
 
           var options = typeof input === 'function' ? input(props) : input;
 
+          _this.onLoad = _this.onLoad.bind(_this);
+
           // Initialize required Google scripts and other configured options
           _this.initialize(options);
 
@@ -194,7 +196,7 @@
 
             // Build script
             this.scriptCache = createCache(options);
-            this.unregisterLoadHandler = this.scriptCache.google.onLoad(this.onLoad.bind(this));
+            this.unregisterLoadHandler = this.scriptCache.google.onLoad(this.onLoad);
 
             // Store information about loading container
             this.LoadingContainer = options.LoadingContainer || DefaultLoadingContainer;
@@ -204,7 +206,11 @@
           value: function onLoad(err, tag) {
             this._gapi = window.google;
 
-            this.setState({ loaded: true, google: this._gapi });
+            try {
+              this.setState({ loaded: true, google: this._gapi });
+            } catch (error) {
+              console.error(error);g;
+            }
           }
         }, {
           key: 'render',

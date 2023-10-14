@@ -128,6 +128,8 @@
 
           var _this = _possibleConstructorReturn(this, (Wrapper.__proto__ || Object.getPrototypeOf(Wrapper)).call(this, props, context));
 
+          var options = typeof input === 'function' ? input(props) : input;
+
           _this.state = {
             loaded: false,
             map: null,

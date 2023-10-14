@@ -42,6 +42,8 @@ export const wrapper = (input, className, style) => WrappedComponent => {
       // Build options from input
       const options = typeof input === 'function' ? input(props) : input;
 
+      this.onLoad = this.onLoad.bind(this);
+
       // Initialize required Google scripts and other configured options
       this.initialize(options);
 
@@ -101,7 +103,7 @@ export const wrapper = (input, className, style) => WrappedComponent => {
       // Build script
       this.scriptCache = createCache(options);
       this.unregisterLoadHandler =
-        this.scriptCache.google.onLoad(this.onLoad.bind(this));
+        this.scriptCache.google.onLoad(this.onLoad);
 
       // Store information about loading container
       this.LoadingContainer =
@@ -111,7 +113,11 @@ export const wrapper = (input, className, style) => WrappedComponent => {
     onLoad(err, tag) {
       this._gapi = window.google;
 
-      this.setState({loaded: true, google: this._gapi});
+      try {
+        this.setState({loaded: true, google: this._gapi});
+      } catch(error) {
+        console.error(error);g
+      }
     }
 
     render() {
